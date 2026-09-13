@@ -61,10 +61,11 @@ export default function OnboardingPage() {
     <div className="flex min-h-dvh flex-col bg-canvas">
       <header className="border-b border-line bg-white">
         <div className="mx-auto flex h-[72px] max-w-5xl items-center justify-between px-4 sm:px-6">
-          <span className="sm:hidden"><Logo height={32} priority /></span>
+          <span className="sm:hidden"><Logo height={30} priority /></span>
           <span className="hidden sm:inline"><Logo height={46} priority /></span>
           <Button size="sm" variant="secondary" href="/demo" iconRight={<ArrowRight className="h-4 w-4" />}>
-            Explore live demo
+            <span className="sm:hidden">Live demo</span>
+            <span className="hidden sm:inline">Explore live demo</span>
           </Button>
         </div>
       </header>

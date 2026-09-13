@@ -160,7 +160,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-dvh w-[272px] shrink-0 flex-col border-r border-line bg-white lg:flex">
         <div className="px-5 pb-4 pt-5">
-          <Logo height={42} href="/" priority />
+          <Logo height={36} href="/" priority />
         </div>
         <div className="px-3">
           <BusinessSelector />
@@ -209,8 +209,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Mobile / tablet top bar */}
         <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md lg:hidden">
           <div className="flex h-[68px] items-center justify-between gap-3 px-4">
-            <Logo height={32} href="/" priority />
-            <div className="w-[170px] sm:w-[220px]">
+            <Logo height={30} href="/" priority />
+            <div className="w-[152px] sm:w-[220px]">
               <BusinessSelector compact />
             </div>
           </div>

@@ -20,7 +20,7 @@ export function ImpactCalculator() {
     const ratingLift = Math.max(0, (targetRating - rating) / 0.1) * 0.03;
     // Assumption 2: steady review volume lifts map-pack visibility. Going from
     // ~3/mo to ~15–25/mo with a counter card ≈ +10–35% more profile views.
-    const targetReviews = Math.max(reviewsPerMonth, 18);
+    const targetReviews = Math.max(18, Math.round(reviewsPerMonth * 1.3));
     const visibilityLift = Math.min(0.35, Math.max(0, (targetReviews - reviewsPerMonth) / 18) * 0.25);
     const lift = ratingLift + visibilityLift;
     const extraCustomers = customers * lift;
@@ -113,10 +113,12 @@ export function ImpactCalculator() {
 
         {/* Why it works */}
         <div className="card p-5">
-          <p className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-ink-subtle">
-            <TrendingUp className="h-3.5 w-3.5" /> Why this compounds
+          <p className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-brand-600">
+            <TrendingUp className="h-3.5 w-3.5" /> The 3 levers
           </p>
-          <ul className="mt-3 space-y-3">
+          <h3 className="mt-1.5 text-[18px] font-extrabold leading-tight text-navy-900">Rank higher. Get seen. Get chosen.</h3>
+          <p className="mt-1 text-[13px] text-ink-muted">Three things move the needle on Google. BoostReviewsAI works all three at once.</p>
+          <ul className="mt-4 space-y-3">
             {[
               { icon: <Star className="h-4 w-4" />, t: "Higher rating", d: `${rating.toFixed(1)} → ${model.targetRating.toFixed(1)} stars means more of the people who find you pick you (+${Math.round(model.ratingLift * 100)}%).` },
               { icon: <MapPin className="h-4 w-4" />, t: "More reviews, more visibility", d: `${reviewsPerMonth} → ${model.targetReviews} reviews a month keeps your profile active and climbing (+${Math.round(model.visibilityLift * 100)}% views).` },
