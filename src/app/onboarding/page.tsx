@@ -5,8 +5,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { Logo } from "@/components/ui/Logo";
-import { PLANS } from "@/lib/billing/plans";
-import { cn, formatCurrency } from "@/lib/utils";
+import { MONTHLY_PRICE, PLANS, formatMoney } from "@/lib/billing/plans";
+import { cn } from "@/lib/utils";
 
 const STEPS = [
   { key: "account", label: "Create account", icon: UserPlus },
@@ -203,10 +203,10 @@ export default function OnboardingPage() {
                   <p className="text-[16px] font-extrabold text-navy-900">{p.name}</p>
                   <p className="text-[12.5px] text-ink-muted">{p.tagline}</p>
                   <p className="mt-2 text-[22px] font-extrabold text-navy-900 tabular">
-                    {formatCurrency(p.priceMonthly)}
-                    <span className="text-xs font-medium text-ink-subtle">/mo</span>
+                    {formatMoney(p.setupFee)}
+                    <span className="text-xs font-medium text-ink-subtle"> to start</span>
                   </p>
-                  {p.setupFee ? <p className="text-[11.5px] text-ink-muted">+ {formatCurrency(p.setupFee)} one-time website build</p> : null}
+                  <p className="text-[11.5px] text-ink-muted">then ${MONTHLY_PRICE}/mo · or 9 months for the year</p>
                   <ul className="mt-3 space-y-1 text-[12.5px] text-ink">
                     {p.features.slice(0, 3).map((f) => (
                       <li key={f} className="flex gap-1.5">

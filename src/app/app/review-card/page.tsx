@@ -2,6 +2,7 @@
 
 import { Check, Copy, ExternalLink, Link2, Nfc, Pause, Play, QrCode, Smartphone, Sparkles, MapPin } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
+import Link from "next/link";
 import { useState } from "react";
 import { ClientOnly, PageHeader, StatCard } from "@/components/app/Common";
 import { AreaTrend, Bars, DualBars } from "@/components/charts/Trend";
@@ -25,6 +26,41 @@ export default function ReviewCardPage() {
 
 function ReviewCardScreen() {
   const d = useBusinessData();
+  // Live Connect accounts don't have a physical card yet; show what Pro adds.
+  if (d.mode === "live" && d.subscription.plan === "starter") return <IncludedWithPro />;
+  return <ReviewCardDetail d={d} />;
+}
+
+function IncludedWithPro() {
+  return (
+    <div>
+      <PageHeader title="Review Card" subtitle="Included with Pro" />
+      <Card>
+        <CardBody className="flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center sm:gap-6">
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+            <Nfc className="h-7 w-7" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[17px] font-extrabold text-navy-900">Get more reviews with a tap-to-review card at your counter</p>
+            <p className="mt-1 text-[14px] text-ink-muted">
+              Pro includes a card we hand deliver and set up for you. Customers tap their phone, your Google review page opens, and you see every tap and every review it brings in right here.
+            </p>
+            <ul className="mt-3 space-y-1 text-[13.5px] text-ink">
+              {["Card hand delivered and set up for you", "Change where it points any time, no reprogramming", "Track taps, best days and reviews earned"].map((f) => (
+                <li key={f} className="flex items-start gap-2"><Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-600" /> {f}</li>
+              ))}
+            </ul>
+          </div>
+          <Link href="/app/billing" className="shrink-0">
+            <Button icon={<Sparkles className="h-4 w-4" />}>Upgrade to Pro</Button>
+          </Link>
+        </CardBody>
+      </Card>
+    </div>
+  );
+}
+
+function ReviewCardDetail({ d }: { d: ReturnType<typeof useBusinessData> }) {
   const { toast } = useToast();
   const setDest = useDemoStore((s) => s.setNfcDestination);
   const setStatus = useDemoStore((s) => s.setNfcStatus);

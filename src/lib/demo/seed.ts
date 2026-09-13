@@ -603,7 +603,7 @@ export const DEMO_SUBSCRIPTION: Subscription = {
   status: "active",
   currentPeriodEnd: ymd(daysAgo(-17)),
   paymentMethod: { brand: "Visa", last4: "4242", expMonth: 8, expYear: 2028 },
-  priceMonthly: 199,
+  priceMonthly: 89,
 };
 
 /* ------------------------------------------------------------------ */

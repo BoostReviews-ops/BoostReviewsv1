@@ -3,6 +3,7 @@
 import { ArrowUpRight, Info, MapPin, Phone, Star, TrendingUp } from "lucide-react";
 import { useMemo, useState } from "react";
 import { cn, formatCurrency } from "@/lib/utils";
+import { MONTHLY_PRICE } from "@/lib/billing/plans";
 
 /**
  * Interactive "what's it worth" estimator. Every assumption is visible and
@@ -37,7 +38,7 @@ export function ImpactCalculator() {
       extraRevenueYear: extraRevenueMonth * 12,
       rankNow,
       rankAfter: Math.max(1, Math.min(rankNow, 2)),
-      paybackMultiple: extraRevenueMonth / 99,
+      paybackMultiple: extraRevenueMonth / MONTHLY_PRICE,
     };
   }, [customers, value, rating, reviewsPerMonth]);
 
@@ -83,7 +84,7 @@ export function ImpactCalculator() {
             <Bar label="With a stronger reputation" value={after} max={barMax} tone="brand" />
           </div>
           <p className="mt-4 text-[13px] text-ink-muted">
-            The Starter plan is $99 a month. At these numbers it pays for itself{" "}
+            The software is ${MONTHLY_PRICE} a month. At these numbers it pays for itself{" "}
             <strong className="text-ink">{model.paybackMultiple >= 1 ? `${model.paybackMultiple.toFixed(model.paybackMultiple >= 10 ? 0 : 1)}×` : "in the first month"}</strong> over.
           </p>
         </div>

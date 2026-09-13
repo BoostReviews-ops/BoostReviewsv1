@@ -5,7 +5,7 @@ import { Logo } from "@/components/ui/Logo";
 import { HeroPreview } from "@/components/landing/HeroPreview";
 import { FeatureExplorer } from "@/components/landing/FeatureExplorer";
 import { ImpactCalculator } from "@/components/landing/ImpactCalculator";
-import { COMPLETE_BREAKDOWN, PLANS } from "@/lib/billing/plans";
+import { Pricing } from "@/components/landing/Pricing";
 
 export default function LandingPage() {
   return (
@@ -143,46 +143,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="bg-canvas py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-600">Pricing</p>
-            <h2 className="mt-2 text-[30px] font-extrabold tracking-tight text-navy-900 sm:text-[36px]">Simple plans. The card is included.</h2>
-            <p className="mt-3 text-[15.5px] text-ink-muted">Start with the software, or let us run your Google presence for you. Most businesses earn it back with a handful of new customers.</p>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {PLANS.map((p) => (
-              <div key={p.id} className={`card relative flex flex-col p-6 ${p.highlight ? "border-brand-400 ring-2 ring-brand-100" : ""}`}>
-                {p.highlight && <span className="absolute -top-3 left-6 rounded-full bg-brand-600 px-2.5 py-0.5 text-[11px] font-bold text-white">Most popular</span>}
-                <p className="text-[18px] font-extrabold text-navy-900">{p.name}</p>
-                <p className="mt-1 text-[14px] text-ink-muted">{p.tagline}</p>
-                <p className="mt-4 text-[34px] font-extrabold leading-none text-navy-900 tabular">
-                  ${p.priceMonthly}
-                  <span className="text-sm font-medium text-ink-subtle">/mo</span>
-                </p>
-                {p.setupFee ? (
-                  <p className="mt-1.5 text-[12.5px] text-ink-muted">
-                    Managed ${COMPLETE_BREAKDOWN.managed} + website care ${COMPLETE_BREAKDOWN.websiteMonthly}/mo · one-time website build ${COMPLETE_BREAKDOWN.websiteSetup}
-                  </p>
-                ) : (
-                  <p className="mt-1.5 text-[12.5px] text-ink-muted">Cancel anytime</p>
-                )}
-                <ul className="mt-5 flex-1 space-y-2">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-[13.5px] text-ink">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" /> {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button className="mt-6" full variant={p.highlight ? "primary" : "outline"} href="/onboarding">
-                  {p.setupFee ? "Talk to us" : "Get started"}
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Pricing />
 
       {/* Impact */}
       <section id="impact" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">

@@ -22,11 +22,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: `Invalid signature: ${(e as Error).message}` }, { status: 400 });
   }
 
+  // Fallback when subscription metadata is missing: infer the plan from the
+  // one-time setup Price attached to the checkout (see /api/stripe/checkout).
   const planFromPrice = (priceId: string | undefined) => {
     if (!priceId) return null;
-    if (priceId === process.env.STRIPE_PRICE_STARTER) return "starter";
-    if (priceId === process.env.STRIPE_PRICE_GROWTH) return "growth";
-    if (priceId === process.env.STRIPE_PRICE_PREMIUM) return "premium";
+    if (priceId === process.env.STRIPE_PRICE_SETUP_CONNECT) return "starter";
+    if (priceId === process.env.STRIPE_PRICE_SETUP_PRO) return "growth";
+    if (priceId === process.env.STRIPE_PRICE_SETUP_WEBSITE) return "premium";
     return null;
   };
 
@@ -34,7 +36,7 @@ export async function POST(req: Request) {
     const sb = adminClient();
     const upsert = async (sub: Stripe.Subscription, orgId?: string | null) => {
       const item = sub.items.data[0];
-      const plan = planFromPrice(item?.price.id) ?? "growth";
+      const plan = (sub.metadata?.plan as "starter" | "growth" | "premium" | undefined) ?? planFromPrice(item?.price.id) ?? "growth";
       const pm = typeof sub.default_payment_method === "object" && sub.default_payment_method?.card ? sub.default_payment_method.card : null;
       const row = {
         org_id: orgId ?? sub.metadata?.org_id ?? null,

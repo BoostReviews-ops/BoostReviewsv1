@@ -1,77 +1,87 @@
 import type { Plan } from "@/lib/types";
 
 /**
- * Subscription plans. Prices are defaults; in production each plan maps to a
- * Stripe Price via STRIPE_PRICE_* so pricing can change without a deploy.
+ * Pricing. Every plan runs on the same $89/mo software subscription; the
+ * first payment is a one-time setup charge that differs by plan. Annual prepay
+ * is 9 months for 12 (3 free). In production each amount maps to a Stripe
+ * Price via the STRIPE_PRICE_* env vars so numbers can change without a deploy.
  */
+export const MONTHLY_PRICE = Number(process.env.NEXT_PUBLIC_PLAN_MONTHLY ?? 89);
+export const ANNUAL_PRICE = Number(process.env.NEXT_PUBLIC_PLAN_ANNUAL ?? MONTHLY_PRICE * 9);
+export const ANNUAL_PER_MONTH = Math.round((ANNUAL_PRICE / 12) * 100) / 100; // 66.75
+
 export interface PlanDefinition {
   id: Plan;
   name: string;
+  setupFee: number;
   priceMonthly: number;
-  /** One-time fee charged at signup (Stripe: a second one-time price on the same checkout). */
-  setupFee?: number;
   tagline: string;
   features: string[];
   highlight?: boolean;
-  stripePriceEnv: string;
-  stripeSetupPriceEnv?: string;
+  cta: string;
+  /** Stripe Price for the one-time setup charge */
+  stripeSetupPriceEnv: string;
 }
+
+const CORE = [
+  "Connect your Google Business Profile in minutes",
+  "One score that tells you how your reputation is doing",
+  "Every review in one inbox, with a reply already written for you. Tap approve, done.",
+  "See what customers love and what they complain about",
+  "A checklist showing what to fix on your Google listing",
+  "A simple report every month",
+];
 
 export const PLANS: PlanDefinition[] = [
   {
     id: "starter",
-    name: "Starter",
-    priceMonthly: Number(process.env.NEXT_PUBLIC_PLAN_STARTER_PRICE ?? 99),
-    tagline: "Collect more reviews and answer them in one tap.",
-    features: [
-      "NFC review card + QR stand for your counter",
-      "Reputation Score with plain-English explanations",
-      "Review inbox with AI-drafted replies you approve",
-      "Customer sentiment and recurring themes",
-      "Google Profile Health checklist",
-      "Monthly reputation report",
-    ],
-    stripePriceEnv: "STRIPE_PRICE_STARTER",
+    name: "Connect",
+    setupFee: Number(process.env.NEXT_PUBLIC_PLAN_CONNECT_SETUP ?? 129),
+    priceMonthly: MONTHLY_PRICE,
+    tagline: "Plug your business in and see where you stand.",
+    features: CORE,
+    cta: "Get started",
+    stripeSetupPriceEnv: "STRIPE_PRICE_SETUP_CONNECT",
   },
   {
     id: "growth",
-    name: "Managed",
-    priceMonthly: Number(process.env.NEXT_PUBLIC_PLAN_GROWTH_PRICE ?? 199),
-    tagline: "We run your Google profile for you.",
+    name: "Pro",
+    setupFee: Number(process.env.NEXT_PUBLIC_PLAN_PRO_SETUP ?? 179.99),
+    priceMonthly: MONTHLY_PRICE,
+    tagline: "We set you up to get more reviews and look your best on Google.",
     features: [
-      "Everything in Starter",
-      "Full Google Business Profile cleanup to the highest standard",
-      "Photo uploads every month, professionally curated",
-      "Services, categories, hours, description and Q&A optimized",
-      "Weekly Google posts and offers to keep the profile active",
-      "We reply to every review within 24 hours",
-      "Competitor tracking with a monthly strategy note",
+      ...CORE,
+      "Tap-to-review card for your counter, hand delivered and set up for you",
+      "We clean up your Google listing to the highest standard: photos, services, categories, hours, description, Q&A",
+      "We set it up so more customers find you and choose you",
+      "Track how many people tap the card and how many reviews it brings in",
     ],
     highlight: true,
-    stripePriceEnv: "STRIPE_PRICE_GROWTH",
+    cta: "Get started",
+    stripeSetupPriceEnv: "STRIPE_PRICE_SETUP_PRO",
   },
   {
     id: "premium",
-    name: "Complete",
-    priceMonthly: Number(process.env.NEXT_PUBLIC_PLAN_PREMIUM_PRICE ?? 388),
-    setupFee: Number(process.env.NEXT_PUBLIC_PLAN_PREMIUM_SETUP ?? 399),
-    tagline: "Managed reputation plus a website that converts.",
+    name: "Website Upgrade",
+    setupFee: Number(process.env.NEXT_PUBLIC_PLAN_WEBSITE_SETUP ?? 399),
+    priceMonthly: MONTHLY_PRICE,
+    tagline: "Everything in Pro, plus a website that turns visitors into customers.",
     features: [
-      "Everything in Managed",
-      "Professional website built for your business, on your own domain",
-      "Mobile-first design with click-to-call and online booking",
-      "Hosting, security updates and monthly edits included",
-      "Google profile and website linked so reviews show on your site",
-      "Priority support",
+      "Everything in Pro, card included",
+      "A simple, professional website in 3–7 days, on your own domain",
+      "Works great on phones, with tap-to-call and online booking",
+      "Your Google reviews shown right on your site",
+      "Hosting, security and small monthly edits included",
     ],
-    stripePriceEnv: "STRIPE_PRICE_PREMIUM",
-    stripeSetupPriceEnv: "STRIPE_PRICE_PREMIUM_SETUP",
+    cta: "Talk to us",
+    stripeSetupPriceEnv: "STRIPE_PRICE_SETUP_WEBSITE",
   },
 ];
 
-/** Breakdown shown next to the Complete plan: Managed + website care. */
-export const COMPLETE_BREAKDOWN = { managed: 199, websiteMonthly: 189, websiteSetup: 399 };
-
 export function getPlan(id: Plan) {
   return PLANS.find((p) => p.id === id) ?? PLANS[1];
+}
+
+export function formatMoney(n: number) {
+  return Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`;
 }
