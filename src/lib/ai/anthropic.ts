@@ -13,7 +13,7 @@ export class AnthropicAIService implements AIService {
     private readonly apiKey: string,
     model?: string,
   ) {
-    this.model = model ?? process.env.AI_MODEL ?? "claude-sonnet-5";
+    this.model = model ?? process.env.AI_MODEL ?? "claude-opus-5";
   }
 
   private async complete(system: string, user: string, maxTokens = 400): Promise<string> {
