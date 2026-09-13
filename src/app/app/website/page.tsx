@@ -51,7 +51,7 @@ function Website() {
 
   return (
     <>
-      <PageHeader title="Website Upgrade" subtitle="A separate BoostReviews.AI service — your site, on your domain, working as hard as your reputation" />
+      <PageHeader title="Website Upgrade" subtitle="A separate BoostReviewsAI service — your site, on your domain, working as hard as your reputation" />
 
       <section className="grid gap-4 lg:grid-cols-[1fr_400px]">
         <div className="space-y-4">
@@ -138,7 +138,7 @@ function Website() {
                   <Button type="submit" full loading={submitting} icon={<Sparkles className="h-4 w-4" />}>
                     Request website audit
                   </Button>
-                  <p className="text-center text-[11.5px] text-ink-subtle">Website services are billed separately from your BoostReviews.AI subscription.</p>
+                  <p className="text-center text-[11.5px] text-ink-subtle">Website services are billed separately from your BoostReviewsAI subscription.</p>
                 </form>
               </CardBody>
             </>

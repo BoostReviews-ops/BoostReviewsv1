@@ -1,5 +1,5 @@
 /**
- * Google Profile Health (BoostReviews.AI proprietary assessment, 0–100).
+ * Google Profile Health (BoostReviewsAI proprietary assessment, 0–100).
  *
  * A checklist-style score that tells an owner how well-maintained their
  * Google Business Profile is. This is our assessment, not a Google metric.

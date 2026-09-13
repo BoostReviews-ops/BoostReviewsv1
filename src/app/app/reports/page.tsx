@@ -179,7 +179,7 @@ function Reports() {
             )}
 
             <p className="mt-8 border-t border-line pt-4 text-[11.5px] leading-snug text-ink-subtle">
-              Prepared by BoostReviews.AI. The Reputation Score and Google Profile Health are proprietary BoostReviews.AI assessments and are not Google metrics. Review data is sourced from the business&apos;s public Google Business Profile.
+              Prepared by BoostReviewsAI. The Reputation Score and Google Profile Health are proprietary BoostReviewsAI assessments and are not Google metrics. Review data is sourced from the business&apos;s public Google Business Profile.
             </p>
           </div>
         </article>

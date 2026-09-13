@@ -81,7 +81,7 @@ function Overview() {
               <ScoreRing value={d.score.score} size={ringSize} stroke={15} tone={d.score.category.tone} label={d.score.category.label} sublabel="out of 100" />
             </button>
             <div className="min-w-0 flex-1 text-center sm:text-left">
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-600">BoostReviews.AI Reputation Score</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-600">BoostReviewsAI Reputation Score</p>
               <h2 className="mt-1.5 text-[24px] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-[28px]">
                 Your reputation is <span className="text-gradient-brand">{d.score.category.label.toLowerCase()}</span>
               </h2>

@@ -12,14 +12,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")),
   title: {
-    default: "BoostReviews.AI — Get more reviews. Understand your reputation.",
-    template: "%s · BoostReviews.AI",
+    default: "BoostReviewsAI — Get more reviews. Understand your reputation.",
+    template: "%s · BoostReviewsAI",
   },
   description:
     "Reputation management and Google Business intelligence for local businesses. Collect reviews with an NFC card, track your Reputation Score, and know exactly what to do next.",
   icons: { icon: "/brand/favicon.png", apple: "/brand/apple-touch-icon.png" },
   openGraph: {
-    title: "BoostReviews.AI",
+    title: "BoostReviewsAI",
     description: "Get more reviews. Understand your reputation. Know what to do next.",
     images: ["/brand/og.png"],
   },

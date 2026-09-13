@@ -63,7 +63,7 @@ function Billing() {
 
   return (
     <>
-      <PageHeader title="Billing" subtitle="Your BoostReviews.AI subscription" />
+      <PageHeader title="Billing" subtitle="Your BoostReviewsAI subscription" />
 
       <section className="grid gap-4 lg:grid-cols-[1fr_360px]">
         <Card>
@@ -120,7 +120,7 @@ function Billing() {
               ))}
             </ul>
             <p className="mt-3 flex items-start gap-2 text-[12px] text-ink-subtle">
-              <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0" /> Payments are processed by Stripe. BoostReviews.AI never stores card numbers.
+              <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0" /> Payments are processed by Stripe. BoostReviewsAI never stores card numbers.
             </p>
           </CardBody>
         </Card>

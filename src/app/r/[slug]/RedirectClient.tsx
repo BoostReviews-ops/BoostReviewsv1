@@ -6,7 +6,7 @@ import { Logo } from "@/components/ui/Logo";
 import { DEMO_REVIEW_CARD } from "@/lib/demo/seed";
 import { useDemoStore } from "@/lib/store/demoStore";
 
-export function RedirectClient({ slug }: { slug: string }) {
+export function RedirectClient({ slug, state: forced }: { slug: string; state?: "paused" | "notfound" }) {
   const hydrated = useDemoStore((s) => s.hydrated);
   const destType = useDemoStore((s) => s.nfcDestinationType);
   const destUrl = useDemoStore((s) => s.nfcDestinationUrl);
@@ -16,11 +16,12 @@ export function RedirectClient({ slug }: { slug: string }) {
   void destType;
 
   const state = useMemo<"resolving" | "redirecting" | "paused" | "notfound">(() => {
+    if (forced) return forced;
     if (!hydrated) return "resolving";
     if (slug !== DEMO_REVIEW_CARD.slug) return "notfound";
     if ((status ?? DEMO_REVIEW_CARD.status) === "paused") return "paused";
     return "redirecting";
-  }, [hydrated, slug, status]);
+  }, [forced, hydrated, slug, status]);
 
   useEffect(() => {
     const t = setTimeout(() => useDemoStore.getState().setHydrated(), 400);
@@ -51,7 +52,7 @@ export function RedirectClient({ slug }: { slug: string }) {
         )}
         {state === "redirecting" && (
           <>
-            <p className="mt-5 text-lg font-bold text-navy-900">Thanks for visiting Royal Massage &amp; Spa!</p>
+            <p className="mt-5 text-lg font-bold text-navy-900">Thanks for visiting!</p>
             <p className="mt-1 text-sm text-ink-muted">Taking you to leave a review…</p>
             <div className="mx-auto mt-4 h-1.5 w-40 overflow-hidden rounded-full bg-line">
               <div className="h-full rounded-full bg-brand-500" style={{ animation: "grow 1.4s linear forwards" }} />

@@ -129,7 +129,7 @@ function Profile() {
             </dl>
             <p className="mt-4 flex items-start gap-2 rounded-xl bg-canvas p-3 text-[12px] leading-snug text-ink-muted">
               <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-600" />
-              Google Profile Health is a BoostReviews.AI assessment based on your profile&apos;s completeness and activity. It is not a Google metric and is not endorsed by Google.
+              Google Profile Health is a BoostReviewsAI assessment based on your profile&apos;s completeness and activity. It is not a Google metric and is not endorsed by Google.
             </p>
           </CardBody>
         </Card>

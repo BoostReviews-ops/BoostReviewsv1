@@ -75,7 +75,7 @@ function ReviewCardScreen() {
                 </div>
                 <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.18em] text-sky-300">Tap to review us</p>
                 <p className="mt-0.5 text-[15px] font-bold text-white">Royal Massage &amp; Spa</p>
-                <p className="mt-2 text-[10px] text-white/70">Powered by BoostReviews.AI</p>
+                <p className="mt-2 text-[10px] text-white/70">Powered by BoostReviewsAI</p>
               </div>
             </div>
             <div className="p-5 sm:p-6">

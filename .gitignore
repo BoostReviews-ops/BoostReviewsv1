@@ -42,3 +42,4 @@ next-env.d.ts
 /out
 boostreviews-netlify.zip
 .api-parked
+.proxy-parked.ts

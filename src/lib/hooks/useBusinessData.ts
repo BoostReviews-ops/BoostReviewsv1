@@ -47,9 +47,11 @@ export function useBusinessData() {
   const extraTaps = useDemoStore((s) => s.extraTaps);
   const websiteLeads = useDemoStore((s) => s.websiteLeads);
   const selectedPlan = useDemoStore((s) => s.selectedPlan);
+  const mode = useDemoStore((s) => s.mode);
+  const liveDataset = useDemoStore((s) => s.liveDataset);
 
   return useMemo(() => {
-    const d = getDemoDataset();
+    const d = mode === "live" && liveDataset ? liveDataset : getDemoDataset();
 
     /* ---------- reviews with demo edits applied ---------- */
     const reviews: Review[] = d.reviews.map((r) => {
@@ -335,8 +337,9 @@ export function useBusinessData() {
       subscription: { ...d.subscription, plan: selectedPlan ?? d.subscription.plan },
       websiteLeads,
       dateRange,
+      mode,
     };
-  }, [replies, dateRange, nfcDestinationType, nfcDestinationUrl, nfcStatus, completedActionIds, extraTaps, websiteLeads, selectedPlan]);
+  }, [replies, dateRange, nfcDestinationType, nfcDestinationUrl, nfcStatus, completedActionIds, extraTaps, websiteLeads, selectedPlan, mode, liveDataset]);
 }
 
 export type BusinessData = ReturnType<typeof useBusinessData>;

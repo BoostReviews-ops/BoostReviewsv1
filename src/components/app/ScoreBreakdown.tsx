@@ -61,7 +61,7 @@ export function ScoreBreakdownContent() {
       <div className="flex items-start gap-2.5 rounded-xl bg-canvas p-3.5 text-[12.5px] leading-snug text-ink-muted">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
         <p>
-          The <strong className="text-ink">BoostReviews.AI Reputation Score</strong> is our proprietary 0–100 assessment of your online reputation. It blends nine signals from your Google reviews, response habits, profile health, review-card activity and local competitors. It is not a Google metric and is not endorsed by Google.
+          The <strong className="text-ink">BoostReviewsAI Reputation Score</strong> is our proprietary 0–100 assessment of your online reputation. It blends nine signals from your Google reviews, response habits, profile health, review-card activity and local competitors. It is not a Google metric and is not endorsed by Google.
           Ranges: 90–100 Excellent · 80–89 Strong · 70–79 Good · 60–69 Needs Attention · below 60 At Risk.
         </p>
       </div>

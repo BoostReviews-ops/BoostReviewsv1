@@ -11,7 +11,8 @@ export default function LandingPage() {
       {/* Nav */}
       <header className="sticky top-0 z-40 border-b border-line/70 bg-white/85 backdrop-blur-md">
         <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Logo height={52} priority />
+          <span className="sm:hidden"><Logo height={38} priority /></span>
+          <span className="hidden sm:inline"><Logo height={50} priority /></span>
           <nav className="hidden items-center gap-7 text-[14px] font-medium text-ink-muted md:flex" aria-label="Primary">
             <a href="#how" className="hover:text-ink">How it works</a>
             <a href="#features" className="hover:text-ink">What you get</a>
@@ -46,14 +47,14 @@ export default function LandingPage() {
               Know what to do next.
             </h1>
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-              Customers tap the BoostReviews.AI card at your front desk and land on your Google review page. Then we turn every review, response and competitor move into one clear score — and tell you exactly what to do this week.
+              Customers tap the BoostReviewsAI card at your front desk and land on your Google review page. Then we turn every review, response and competitor move into one clear score — and tell you exactly what to do this week.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Button size="lg" href="/demo" iconRight={<ArrowRight className="h-5 w-5" />}>
                 Explore live demo
               </Button>
               <Button size="lg" variant="outline" href="/onboarding">
-                Get BoostReviews.AI
+                Get BoostReviewsAI
               </Button>
             </div>
             <p className="mt-3 text-[13px] text-ink-subtle">No account needed for the demo. See a real business dashboard in 10 seconds.</p>
@@ -79,7 +80,7 @@ export default function LandingPage() {
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {[
             { n: "1", icon: <Nfc className="h-5 w-5" />, title: "Collect reviews with a tap", body: "A premium NFC card or stand sits at checkout. Customers tap (or scan the QR) and land straight on your Google review page. The link is yours to change any time — no reprogramming." },
-            { n: "2", icon: <BarChart3 className="h-5 w-5" />, title: "See one clear score", body: "The BoostReviews.AI Reputation Score blends rating, review growth, response habits, sentiment, profile health and competitors into a single 0–100 number — with the reasons it moved." },
+            { n: "2", icon: <BarChart3 className="h-5 w-5" />, title: "See one clear score", body: "The BoostReviewsAI Reputation Score blends rating, review growth, response habits, sentiment, profile health and competitors into a single 0–100 number — with the reasons it moved." },
             { n: "3", icon: <Zap className="h-5 w-5" />, title: "Know your next best move", body: "Every week you get 1–3 prioritized actions: reply to these reviews (we draft them), fix this profile gap, out-pace that competitor. Do them, watch the score climb." },
           ].map((s) => (
             <div key={s.n} className="card card-hover p-6">
@@ -111,7 +112,7 @@ export default function LandingPage() {
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-600">Built for local service businesses</p>
-            <h2 className="mt-2 text-[28px] font-extrabold tracking-tight text-navy-900 sm:text-[34px]">If customers can leave you a Google review, BoostReviews.AI works for you.</h2>
+            <h2 className="mt-2 text-[28px] font-extrabold tracking-tight text-navy-900 sm:text-[34px]">If customers can leave you a Google review, BoostReviewsAI works for you.</h2>
             <p className="mt-3 text-[15.5px] leading-relaxed text-ink-muted">Spas and salons, dentists and chiropractors, restaurants, gyms, auto shops, contractors and more. One card at the counter, one score to watch.</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {["Massage & spa", "Med spa", "Barber & salon", "Nails & esthetics", "Chiropractic", "Dental", "Restaurants", "Gyms", "Tattoo", "Auto detail & repair", "Contractors", "Home services"].map((t) => (
@@ -193,7 +194,7 @@ export default function LandingPage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
           <Logo height={40} />
           <p className="flex items-center gap-1.5 text-[12.5px] text-ink-subtle">
-            <ShieldCheck className="h-3.5 w-3.5" /> Reputation Score and Google Profile Health are BoostReviews.AI assessments, not Google metrics.
+            <ShieldCheck className="h-3.5 w-3.5" /> Reputation Score and Google Profile Health are BoostReviewsAI assessments, not Google metrics.
           </p>
           <div className="flex gap-4 text-[13px] font-medium text-ink-muted">
             <Link href="/demo" className="hover:text-ink">Demo</Link>

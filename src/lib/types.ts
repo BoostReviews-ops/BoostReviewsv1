@@ -1,5 +1,5 @@
 /**
- * BoostReviews.AI — core domain types.
+ * BoostReviewsAI — core domain types.
  *
  * These types are shared by the demo provider (seeded data) and the future
  * Google Business Profile provider. Anything that reaches the UI goes through

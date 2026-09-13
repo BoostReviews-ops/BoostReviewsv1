@@ -17,7 +17,6 @@ import { cn, formatDate, relativeTime } from "@/lib/utils";
 /** Static-export builds have no API routes; skip the round trip. */
 const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
 
-const BUSINESS_NAME = "Royal Massage & Spa";
 
 function sentimentTone(r: Review) {
   return r.sentiment === "positive" ? "success" : r.sentiment === "neutral" ? "warning" : "danger";
@@ -67,6 +66,7 @@ export function ReviewRow({ review, compact, onOpen }: { review: Review; compact
 
 export function ReviewDetailModal({ review, open, onClose }: { review: Review; open: boolean; onClose: () => void }) {
   const saveReply = useDemoStore((s) => s.saveReply);
+  const BUSINESS_NAME = useDemoStore((s) => (s.mode === "live" && s.liveDataset ? s.liveDataset.business.name : "Royal Massage & Spa"));
   const deleteReply = useDemoStore((s) => s.deleteReply);
   const { toast } = useToast();
   const answered = !!review.response && (review.response.status === "responded" || review.response.status === "approved");
@@ -175,7 +175,7 @@ export function ReviewDetailModal({ review, open, onClose }: { review: Review; o
             </div>
             {!text && !generating ? (
               <div className="flex flex-col items-start gap-3">
-                <p className="text-[13.5px] text-ink-muted">Let BoostReviews.AI draft a personal reply that references what {review.reviewerName.split(" ")[0]} actually wrote. You always review it before it goes anywhere.</p>
+                <p className="text-[13.5px] text-ink-muted">Let BoostReviewsAI draft a personal reply that references what {review.reviewerName.split(" ")[0]} actually wrote. You always review it before it goes anywhere.</p>
                 <div className="flex flex-wrap gap-2">
                   <Button onClick={generate} icon={<WandSparkles className="h-4 w-4" />}>
                     Generate AI reply

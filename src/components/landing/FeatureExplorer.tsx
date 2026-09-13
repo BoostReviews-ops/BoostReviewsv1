@@ -42,8 +42,11 @@ export function FeatureExplorer() {
 
   // Keep the active chip visible on mobile.
   useEffect(() => {
-    const el = chipsRef.current?.children[active] as HTMLElement | undefined;
-    el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    // Scroll the chip strip horizontally only — never the page.
+    const wrap = chipsRef.current;
+    const el = wrap?.children[active] as HTMLElement | undefined;
+    if (!wrap || !el || wrap.scrollWidth <= wrap.clientWidth) return;
+    wrap.scrollTo({ left: el.offsetLeft - (wrap.clientWidth - el.offsetWidth) / 2, behavior: "smooth" });
   }, [active]);
 
   const select = (i: number) => {
@@ -135,7 +138,7 @@ function ScorePreview() {
     <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-7">
       <ScoreRing value={87} size={150} stroke={12} tone="strong" label="Strong" sublabel="out of 100" />
       <div className="flex-1 text-center sm:text-left">
-        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600">BoostReviews.AI Reputation Score</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600">BoostReviewsAI Reputation Score</p>
         <p className="mt-1 text-[22px] font-extrabold leading-tight text-navy-900">
           Your reputation is <span className="text-gradient-brand">strong</span>
         </p>

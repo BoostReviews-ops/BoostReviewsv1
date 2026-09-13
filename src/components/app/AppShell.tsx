@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/components/ui/Toast";
 import { useDemoStore } from "@/lib/store/demoStore";
+import { LiveDataLoader } from "@/components/app/LiveDataLoader";
 import { cn } from "@/lib/utils";
 
 export const NAV = [
@@ -52,6 +53,10 @@ function isActive(pathname: string, href: string, exact?: boolean) {
 
 function BusinessSelector({ compact }: { compact?: boolean }) {
   const [open, setOpen] = useState(false);
+  const biz = useDemoStore((s) => (s.mode === "live" && s.liveDataset ? s.liveDataset.business : null));
+  const name = biz?.name ?? "Royal Massage & Spa";
+  const sub = biz ? `${biz.locations[0]?.name ?? "Main"}${biz.city ? ` · ${biz.city}` : ""}` : "Westgate · Austin, TX";
+  const mono = name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const onDoc = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
@@ -69,10 +74,10 @@ function BusinessSelector({ compact }: { compact?: boolean }) {
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-[11px] font-bold text-white">RM</span>
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-[11px] font-bold text-white">{mono}</span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[13px] font-semibold leading-tight text-ink">Royal Massage &amp; Spa</span>
-          {!compact && <span className="block truncate text-[11px] leading-tight text-ink-subtle">Westgate · Austin, TX</span>}
+          <span className="block truncate text-[13px] font-semibold leading-tight text-ink">{name}</span>
+          {!compact && <span className="block truncate text-[11px] leading-tight text-ink-subtle">{sub}</span>}
         </span>
         <ChevronDown className="h-4 w-4 shrink-0 text-ink-subtle" />
       </button>
@@ -80,9 +85,9 @@ function BusinessSelector({ compact }: { compact?: boolean }) {
         <div className="absolute left-0 right-0 z-40 mt-1.5 min-w-[260px] overflow-hidden rounded-2xl border border-line bg-white p-1.5 shadow-[var(--shadow-pop)] animate-fade-up" role="listbox">
           <p className="px-2.5 pb-1 pt-1.5 text-[11px] font-bold uppercase tracking-wider text-ink-subtle">Businesses</p>
           <button className="flex w-full items-center gap-2.5 rounded-xl bg-brand-50 px-2.5 py-2 text-left" role="option" aria-selected>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-navy-900 text-[11px] font-bold text-white">RM</span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-navy-900 text-[11px] font-bold text-white">{mono}</span>
             <span className="flex-1">
-              <span className="block text-[13px] font-semibold text-ink">Royal Massage &amp; Spa</span>
+              <span className="block text-[13px] font-semibold text-ink">{name}</span>
               <span className="block text-[11px] text-ink-muted">1 location · Growth plan</span>
             </span>
             <Check className="h-4 w-4 text-brand-600" />
@@ -90,7 +95,7 @@ function BusinessSelector({ compact }: { compact?: boolean }) {
           <p className="px-2.5 pb-1 pt-2.5 text-[11px] font-bold uppercase tracking-wider text-ink-subtle">Locations</p>
           <div className="flex items-center gap-2.5 rounded-xl px-2.5 py-2">
             <Building2 className="h-4 w-4 text-ink-subtle" />
-            <span className="flex-1 text-[13px] font-medium text-ink">Westgate (primary)</span>
+            <span className="flex-1 text-[13px] font-medium text-ink">{biz?.locations[0]?.name ?? "Westgate"} (primary)</span>
             <Check className="h-4 w-4 text-brand-600" />
           </div>
           <div className="mt-1 border-t border-line pt-1">
@@ -155,7 +160,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-dvh w-[272px] shrink-0 flex-col border-r border-line bg-white lg:flex">
         <div className="px-5 pb-4 pt-5">
-          <Logo height={64} href="/" priority />
+          <Logo height={44} href="/" priority />
         </div>
         <div className="px-3">
           <BusinessSelector />
@@ -188,7 +193,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <p className="mt-2 text-[12px] font-semibold text-white/90 underline-offset-2 hover:underline">Request a free audit →</p>
           </Link>
           <Link href="/" className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-medium text-ink-muted hover:bg-canvas hover:text-ink">
-            <Home className="h-4 w-4 text-ink-subtle" /> BoostReviews.AI home
+            <Home className="h-4 w-4 text-ink-subtle" /> BoostReviewsAI home
           </Link>
           <div className="flex items-center justify-between rounded-xl bg-canvas px-3 py-2">
             <span className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-ink-subtle">
@@ -204,13 +209,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Mobile / tablet top bar */}
         <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md lg:hidden">
           <div className="flex h-[68px] items-center justify-between gap-3 px-4">
-            <Logo height={46} href="/" priority />
+            <Logo height={38} href="/" priority />
             <div className="w-[170px] sm:w-[220px]">
               <BusinessSelector compact />
             </div>
           </div>
         </header>
 
+        <LiveDataLoader />
         <main className="mx-auto w-full max-w-[1180px] flex-1 px-4 pb-28 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pb-12">{children}</main>
       </div>
 
@@ -269,7 +275,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <ResetDemo />
             </div>
             <Link href="/" className="mt-3 flex h-11 items-center justify-center gap-2 rounded-xl border border-line text-[14px] font-semibold text-ink">
-              <Home className="h-4 w-4 text-brand-600" /> BoostReviews.AI home
+              <Home className="h-4 w-4 text-brand-600" /> BoostReviewsAI home
             </Link>
           </div>
         </div>

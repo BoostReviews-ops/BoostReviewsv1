@@ -1,4 +1,4 @@
--- BoostReviews.AI — production schema (Supabase / Postgres)
+-- BoostReviewsAI — production schema (Supabase / Postgres)
 -- Multi-tenant: organizations → businesses → locations. Every data table hangs
 -- off a location so agencies and multi-location businesses work from day one.
 -- Apply with:  supabase db push   (or paste into the SQL editor)

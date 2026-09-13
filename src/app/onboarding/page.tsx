@@ -31,7 +31,29 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(0);
   const [plan, setPlan] = useState("growth");
   const [form, setForm] = useState({ name: "", email: "", business: "", phone: "", website: "", dest: "google" });
-  const next = () => setStep((s) => Math.min(STEPS.length - 1, s + 1));
+  const [creating, setCreating] = useState(false);
+  const next = async () => {
+    if (STEPS[step].key === "plan" && process.env.NEXT_PUBLIC_SUPABASE_URL && !STATIC) {
+      setCreating(true);
+      try {
+        const res = await fetch("/api/onboarding", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ businessName: form.business || "My Business", phone: form.phone, website: form.website }) });
+        const json = (await res.json()) as { ok?: boolean; error?: string; mode?: string };
+        if (res.status === 401) {
+          toast({ kind: "info", title: "Sign in first", description: "Use the email link, then come back to finish setup." });
+          window.location.href = "/login?next=/onboarding";
+          return;
+        }
+        if (!res.ok || json.error) throw new Error(json.error ?? "Could not create the business");
+        document.cookie = "br_demo=; path=/; max-age=0";
+      } catch (e) {
+        toast({ kind: "error", title: "Setup failed", description: (e as Error).message });
+        setCreating(false);
+        return;
+      }
+      setCreating(false);
+    }
+    setStep((s) => Math.min(STEPS.length - 1, s + 1));
+  };
   const back = () => setStep((s) => Math.max(0, s - 1));
   const current = STEPS[step];
 
@@ -39,7 +61,8 @@ export default function OnboardingPage() {
     <div className="flex min-h-dvh flex-col bg-canvas">
       <header className="border-b border-line bg-white">
         <div className="mx-auto flex h-[72px] max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Logo height={48} priority />
+          <span className="sm:hidden"><Logo height={36} priority /></span>
+          <span className="hidden sm:inline"><Logo height={46} priority /></span>
           <Button size="sm" variant="secondary" href="/demo" iconRight={<ArrowRight className="h-4 w-4" />}>
             Explore live demo
           </Button>
@@ -77,7 +100,7 @@ export default function OnboardingPage() {
 
           {current.key === "account" && (
             <div className="mt-6 max-w-md space-y-3">
-              <p className="text-[14.5px] text-ink-muted">Create your BoostReviews.AI account. In production this uses secure email or Google sign-in.</p>
+              <p className="text-[14.5px] text-ink-muted">Create your BoostReviewsAI account. In production this uses secure email or Google sign-in.</p>
               <Field label="Your name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} placeholder="Alexis Romero" />
               <Field label="Work email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} placeholder="owner@yourbusiness.com" type="email" />
               <div className="rounded-xl bg-canvas p-3 text-[12.5px] text-ink-muted">Just looking? <a href="/demo" className="font-semibold text-brand-600">Explore the live demo</a> — no account required.</div>
@@ -119,9 +142,9 @@ export default function OnboardingPage() {
 
           {current.key === "authorize" && (
             <div className="mt-6 max-w-md space-y-4">
-              <p className="text-[14.5px] text-ink-muted">Authorize BoostReviews.AI to read your reviews and publish replies you approve. We only request the Business Profile scope Google requires, and you can revoke access any time.</p>
+              <p className="text-[14.5px] text-ink-muted">Authorize BoostReviewsAI to read your reviews and publish replies you approve. We only request the Business Profile scope Google requires, and you can revoke access any time.</p>
               <div className="rounded-2xl border border-line bg-white p-4">
-                <p className="text-[13px] font-semibold text-ink">BoostReviews.AI will be able to:</p>
+                <p className="text-[13px] font-semibold text-ink">BoostReviewsAI will be able to:</p>
                 <ul className="mt-2 space-y-1.5 text-[13.5px] text-ink-muted">
                   {["See your business information and locations", "See your reviews and ratings", "Publish review replies that you approve", "Nothing is posted automatically"].map((t) => (
                     <li key={t} className="flex items-start gap-2">
@@ -166,7 +189,7 @@ export default function OnboardingPage() {
               <p className="text-[14.5px] text-ink-muted">Your permanent redirect link is generated now and programmed onto the NFC card we ship you. Change the destination any time from the dashboard — the card never needs reprogramming.</p>
               <div className="rounded-2xl gradient-brand p-5 text-white">
                 <p className="text-[11px] font-bold uppercase tracking-wider text-sky-300">Your card link</p>
-                <p className="mt-1 font-mono text-[15px]">boostreviews.ai/r/{(form.business || "your-business").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}</p>
+                <p className="mt-1 font-mono text-[15px]">boostreviewsai.com/r/{(form.business || "your-business").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}</p>
                 <p className="mt-3 text-[12.5px] text-white/80">Ships in 3–5 business days with a countertop stand and a matching QR card.</p>
               </div>
             </div>
@@ -213,7 +236,7 @@ export default function OnboardingPage() {
               <Button variant="ghost" onClick={back} disabled={step === 0}>
                 Back
               </Button>
-              <Button onClick={next} iconRight={<ArrowRight className="h-4 w-4" />}>
+              <Button onClick={next} loading={creating} iconRight={<ArrowRight className="h-4 w-4" />}>
                 Continue
               </Button>
             </div>

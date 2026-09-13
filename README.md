@@ -1,4 +1,4 @@
-# BoostReviews.AI
+# BoostReviewsAI
 
 Reputation management and Google Business intelligence for local businesses.
 Customers tap an NFC review card at the counter; owners get one Reputation Score,

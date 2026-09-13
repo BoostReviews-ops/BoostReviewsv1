@@ -1,5 +1,5 @@
 /**
- * BoostReviews.AI Reputation Score (proprietary, 0–100).
+ * BoostReviewsAI Reputation Score (proprietary, 0–100).
  *
  * This is NOT a Google score. It blends nine signals into a single number a
  * business owner can track like a fitness score. Each factor is capped so no

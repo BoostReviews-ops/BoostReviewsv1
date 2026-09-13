@@ -59,7 +59,7 @@ function Settings() {
           <CardHeader title="Integrations" subtitle="Connections that power your dashboard" icon={<Plug className="h-4 w-4" />} />
           <CardBody className="pt-2">
             <ul className="divide-y divide-line">
-              <Integration icon={<Globe className="h-4 w-4" />} name="Google Business Profile" status="demo" note="Demo data provider active. Connect your real profile in production — no data is being pulled from Google." action="Connect (production)" onAction={() => toast({ kind: "info", title: "Google connection", description: "Enabled once GOOGLE_CLIENT_ID / SECRET are configured. See docs/GOING_LIVE.md." })} />
+              <Integration icon={<Globe className="h-4 w-4" />} name="Google Business Profile" status={d.mode === "live" ? "ready" : "demo"} note={d.mode === "live" ? "Authorize BoostReviewsAI to read your reviews and publish replies you approve." : "Demo data provider active. Connect your real profile in production — no data is being pulled from Google."} action={d.mode === "live" ? "Connect Google" : "Connect (production)"} onAction={() => (d.mode === "live" ? (window.location.href = "/api/google/oauth/start") : toast({ kind: "info", title: "Google connection", description: "Available to signed-in accounts on the production deployment." }))} />
               <Integration icon={<Sparkles className="h-4 w-4" />} name="AI assistant" status="demo" note="Demo reply generator active. Production uses a server-side AI provider; keys never reach the browser." />
               <Integration icon={<KeyRound className="h-4 w-4" />} name="Stripe billing" status="demo" note="Test billing. Switch to live keys to charge real subscriptions." />
               <Integration icon={<Database className="h-4 w-4" />} name="Supabase database" status="ready" note="Schema ready (supabase/migrations). Demo persists locally in your browser." />
@@ -101,7 +101,7 @@ function Settings() {
               {[
                 ["Alexis Romero", "owner@royalmassageandspa.com", "Owner"],
                 ["Front Desk", "frontdesk@royalmassageandspa.com", "Member"],
-                ["BoostReviews.AI", "support@boostreviews.ai", "Agency admin"],
+                ["BoostReviewsAI", "support@boostreviewsai.com", "Agency admin"],
               ].map(([n, e, role]) => (
                 <li key={e} className="flex items-center justify-between gap-3 py-3">
                   <div className="min-w-0">

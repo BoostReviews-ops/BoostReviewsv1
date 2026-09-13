@@ -1,5 +1,5 @@
 /**
- * BusinessDataProvider — the seam between BoostReviews.AI and the outside world.
+ * BusinessDataProvider — the seam between BoostReviewsAI and the outside world.
  *
  * DemoBusinessProvider  → seeded data, no credentials, used for the sales demo.
  * GoogleBusinessProvider → Google Business Profile APIs (OAuth), production.
