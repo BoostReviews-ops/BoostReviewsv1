@@ -61,7 +61,7 @@ export default function OnboardingPage() {
     <div className="flex min-h-dvh flex-col bg-canvas">
       <header className="border-b border-line bg-white">
         <div className="mx-auto flex h-[72px] max-w-5xl items-center justify-between px-4 sm:px-6">
-          <span className="sm:hidden"><Logo height={36} priority /></span>
+          <span className="sm:hidden"><Logo height={32} priority /></span>
           <span className="hidden sm:inline"><Logo height={46} priority /></span>
           <Button size="sm" variant="secondary" href="/demo" iconRight={<ArrowRight className="h-4 w-4" />}>
             Explore live demo
@@ -205,6 +205,7 @@ export default function OnboardingPage() {
                     {formatCurrency(p.priceMonthly)}
                     <span className="text-xs font-medium text-ink-subtle">/mo</span>
                   </p>
+                  {p.setupFee ? <p className="text-[11.5px] text-ink-muted">+ {formatCurrency(p.setupFee)} one-time website build</p> : null}
                   <ul className="mt-3 space-y-1 text-[12.5px] text-ink">
                     {p.features.slice(0, 3).map((f) => (
                       <li key={f} className="flex gap-1.5">

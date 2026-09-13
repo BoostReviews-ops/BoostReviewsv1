@@ -25,7 +25,7 @@ export function Logo({
 }) {
   const iconH = Math.round(height * 0.86);
   const iconW = Math.round(iconH * 0.8);
-  const fontSize = Math.round(height * 0.5);
+  const fontSize = Math.round(height * 0.6);
   const inner = (
     <span className={cn("inline-flex items-center gap-[0.32em] whitespace-nowrap", className)} style={{ height, fontSize }}>
       <Image src="/brand/icon-512.png" alt="" width={iconW} height={iconH} priority={priority} className="select-none" style={{ height: iconH, width: "auto" }} />

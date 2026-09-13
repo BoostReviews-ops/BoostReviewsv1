@@ -140,6 +140,7 @@ function Billing() {
                   {formatCurrency(p.priceMonthly)}
                   <span className="text-sm font-medium text-ink-subtle">/mo</span>
                 </p>
+                {p.setupFee ? <p className="text-[12px] text-ink-muted">+ {formatCurrency(p.setupFee)} one-time website build</p> : null}
                 <ul className="mt-4 flex-1 space-y-1.5">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-[13px] text-ink">
