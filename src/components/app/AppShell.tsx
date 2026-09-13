@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  BarChart3,
+  Home,
   Building2,
   Check,
   ChevronDown,
@@ -155,7 +155,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-dvh w-[272px] shrink-0 flex-col border-r border-line bg-white lg:flex">
         <div className="px-5 pb-4 pt-5">
-          <Logo height={64} href="/app" priority />
+          <Logo height={64} href="/" priority />
         </div>
         <div className="px-3">
           <BusinessSelector />
@@ -187,6 +187,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <p className="mt-1.5 text-[13px] font-semibold leading-snug">Your website should work as hard as your reputation.</p>
             <p className="mt-2 text-[12px] font-semibold text-white/90 underline-offset-2 hover:underline">Request a free audit →</p>
           </Link>
+          <Link href="/" className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-medium text-ink-muted hover:bg-canvas hover:text-ink">
+            <Home className="h-4 w-4 text-ink-subtle" /> BoostReviews.AI home
+          </Link>
           <div className="flex items-center justify-between rounded-xl bg-canvas px-3 py-2">
             <span className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-ink-subtle">
               <span className="h-1.5 w-1.5 rounded-full bg-sky-400" /> Demo mode
@@ -201,7 +204,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Mobile / tablet top bar */}
         <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md lg:hidden">
           <div className="flex h-[68px] items-center justify-between gap-3 px-4">
-            <Logo height={46} href="/app" priority />
+            <Logo height={46} href="/" priority />
             <div className="w-[170px] sm:w-[220px]">
               <BusinessSelector compact />
             </div>
@@ -265,8 +268,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </span>
               <ResetDemo />
             </div>
-            <Link href="/" className="mt-3 flex items-center justify-center gap-2 text-[13px] font-semibold text-ink-muted">
-              <BarChart3 className="h-4 w-4" /> Back to BoostReviews.AI home
+            <Link href="/" className="mt-3 flex h-11 items-center justify-center gap-2 rounded-xl border border-line text-[14px] font-semibold text-ink">
+              <Home className="h-4 w-4 text-brand-600" /> BoostReviews.AI home
             </Link>
           </div>
         </div>

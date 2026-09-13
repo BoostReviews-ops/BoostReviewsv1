@@ -3,6 +3,7 @@
 import { ArrowRight, Building2, Check, CreditCard, Globe, LayoutDashboard, Link2, Nfc, Search, ShieldCheck, Sparkles, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { useToast } from "@/components/ui/Toast";
 import { Logo } from "@/components/ui/Logo";
 import { PLANS } from "@/lib/billing/plans";
 import { cn, formatCurrency } from "@/lib/utils";
@@ -23,7 +24,10 @@ const STEPS = [
  * shown to a prospect; production wiring (Supabase auth, Google OAuth, Stripe
  * Checkout) hooks into the same steps. "Explore live demo" skips all of it.
  */
+const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 export default function OnboardingPage() {
+  const { toast } = useToast();
   const [step, setStep] = useState(0);
   const [plan, setPlan] = useState("growth");
   const [form, setForm] = useState({ name: "", email: "", business: "", phone: "", website: "", dest: "google" });
@@ -65,6 +69,11 @@ export default function OnboardingPage() {
             Step {step + 1} of {STEPS.length}
           </p>
           <h1 className="mt-1.5 text-[24px] font-extrabold tracking-tight text-navy-900 sm:text-[28px]">{current.label}</h1>
+          {step === 0 && (
+            <p className="mt-3 inline-flex items-center gap-2 rounded-xl bg-sky-100 px-3 py-2 text-[12.5px] font-medium text-brand-700">
+              <Sparkles className="h-3.5 w-3.5" /> Preview of the setup flow. Live accounts open at launch — nothing is saved here yet.
+            </p>
+          )}
 
           {current.key === "account" && (
             <div className="mt-6 max-w-md space-y-3">
@@ -121,10 +130,16 @@ export default function OnboardingPage() {
                   ))}
                 </ul>
               </div>
-              <Button variant="outline" href="/api/google/oauth/start" icon={<ShieldCheck className="h-4 w-4" />}>
-                Continue with Google (production)
-              </Button>
-              <p className="text-[12px] text-ink-subtle">Not configured in this deployment yet — the demo runs on seeded data. Skip ahead to keep exploring.</p>
+              {STATIC ? (
+                <Button variant="outline" icon={<ShieldCheck className="h-4 w-4" />} onClick={() => toast({ kind: "info", title: "Google connection opens at launch", description: "This preview runs on seeded demo data. Continue to see the rest of the flow." })}>
+                  Continue with Google
+                </Button>
+              ) : (
+                <Button variant="outline" href="/api/google/oauth/start" icon={<ShieldCheck className="h-4 w-4" />}>
+                  Continue with Google
+                </Button>
+              )}
+              <p className="text-[12px] text-ink-subtle">Live Google connections open with the production launch. Continue to preview the rest of the flow.</p>
             </div>
           )}
 

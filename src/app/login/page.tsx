@@ -4,6 +4,7 @@ import { ArrowRight, Mail, ShieldCheck, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
+import { useToast } from "@/components/ui/Toast";
 
 /** Static-export builds have no API routes; skip the round trip. */
 const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
@@ -13,6 +14,7 @@ const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
  * never requires an account — "Explore live demo" goes straight to the app.
  */
 export default function LoginPage() {
+  const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,9 +60,15 @@ export default function LoginPage() {
               <Button type="submit" full loading={loading}>
                 Email me a sign-in link
               </Button>
-              <Button type="button" variant="outline" full href="/api/google/oauth/start" icon={<ShieldCheck className="h-4 w-4" />}>
-                Continue with Google (production)
-              </Button>
+              {STATIC ? (
+                <Button type="button" variant="outline" full icon={<ShieldCheck className="h-4 w-4" />} onClick={() => toast({ kind: "info", title: "Sign-in opens at launch", description: "Accounts are created with the production launch. Explore the live demo meanwhile." })}>
+                  Continue with Google
+                </Button>
+              ) : (
+                <Button type="button" variant="outline" full href="/api/google/oauth/start" icon={<ShieldCheck className="h-4 w-4" />}>
+                  Continue with Google
+                </Button>
+              )}
             </form>
           )}
           <div className="mt-6 border-t border-line pt-5">
