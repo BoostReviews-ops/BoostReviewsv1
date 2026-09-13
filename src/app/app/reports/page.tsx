@@ -76,7 +76,7 @@ function Reports() {
           <div className="border-b border-line bg-gradient-to-br from-white to-brand-50/60 p-6 sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <Logo height={40} href={null} />
+                <Logo height={48} href={null} />
                 <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-600">Monthly Reputation Report</p>
                 <h2 className="mt-1 text-[24px] font-extrabold tracking-tight text-navy-900 sm:text-[28px]">{d.business.name}</h2>
                 <p className="text-[14px] text-ink-muted">

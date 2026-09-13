@@ -75,7 +75,7 @@ export function RedirectClient({ slug }: { slug: string }) {
           </>
         )}
         <div className="mt-6 flex items-center justify-center gap-2 text-[11px] text-ink-subtle">
-          Powered by <Logo height={22} href="/" />
+          Powered by <Logo height={26} href="/" />
         </div>
       </div>
     </div>
