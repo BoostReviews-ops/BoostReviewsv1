@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import { HeroPreview } from "@/components/landing/HeroPreview";
+import { FeatureExplorer } from "@/components/landing/FeatureExplorer";
 
 export default function LandingPage() {
   return (
@@ -99,23 +100,9 @@ export default function LandingPage() {
           <div className="max-w-2xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-sky-300">What you get</p>
             <h2 className="mt-2 text-[30px] font-extrabold tracking-tight sm:text-[38px]">Everything a busy owner needs. Nothing they don&apos;t.</h2>
+            <p className="mt-3 text-[15.5px] text-white/70">Tap a tool to see it working with real numbers. Every one of them answers a question you already ask.</p>
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { icon: <Star className="h-5 w-5" />, title: "Reputation Score", body: "One 0–100 score, updated continuously, with a breakdown of exactly what's helping and hurting." },
-              { icon: <MessageSquareText className="h-5 w-5" />, title: "AI-assisted replies", body: "Personal, on-brand responses drafted for every review. You approve — nothing publishes without you." },
-              { icon: <Sparkles className="h-5 w-5" />, title: "Customer sentiment & themes", body: "What customers love, and which complaints are creeping up — without reading 400 reviews." },
-              { icon: <Users className="h-5 w-5" />, title: "Competitor intelligence", body: "Rating, review growth and momentum for nearby businesses, interpreted in plain English." },
-              { icon: <Globe className="h-5 w-5" />, title: "Google Profile Health", body: "A checklist score for your Google Business Profile: hours, services, photos, responses." },
-              { icon: <FileText className="h-5 w-5" />, title: "Monthly report", body: "A polished report you can share with a partner, manager or franchisor." },
-            ].map((f) => (
-              <div key={f.title} className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-colors hover:bg-white/[0.08]">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-sky-300">{f.icon}</span>
-                <h3 className="mt-4 text-[17px] font-bold">{f.title}</h3>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-white/70">{f.body}</p>
-              </div>
-            ))}
-          </div>
+          <FeatureExplorer />
         </div>
       </section>
 
