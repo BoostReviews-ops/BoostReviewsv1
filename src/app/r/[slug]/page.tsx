@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { DEMO_REVIEW_CARD } from "@/lib/demo/seed";
 import { activeProviderKind } from "@/lib/providers";
 import { RedirectClient } from "./RedirectClient";
 
 export const metadata: Metadata = { title: "Leave a review", robots: { index: false } };
+
+/** Static export pre-renders the demo card; the server build resolves any slug. */
+export function generateStaticParams() {
+  return [{ slug: DEMO_REVIEW_CARD.slug }];
+}
 
 /**
  * NFC / QR redirect endpoint — the URL programmed onto physical cards.

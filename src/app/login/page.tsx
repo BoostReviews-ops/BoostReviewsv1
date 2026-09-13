@@ -5,6 +5,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 
+/** Static-export builds have no API routes; skip the round trip. */
+const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 /**
  * Sign-in screen. Production: Supabase Auth (magic link + Google). The demo
  * never requires an account — "Explore live demo" goes straight to the app.
@@ -18,6 +21,7 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
+      if (STATIC) throw new Error("static");
       const res = await fetch("/api/auth/magic-link", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
       void res;
     } catch {

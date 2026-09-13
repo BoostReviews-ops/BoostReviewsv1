@@ -11,6 +11,9 @@ import { useBusinessData } from "@/lib/hooks/useBusinessData";
 import { useDemoStore } from "@/lib/store/demoStore";
 import { formatDate } from "@/lib/utils";
 
+/** Static-export builds have no API routes; skip the round trip. */
+const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 export default function WebsitePage() {
   return (
     <ClientOnly>
@@ -35,7 +38,7 @@ function Website() {
     }
     setSubmitting(true);
     try {
-      await fetch("/api/website-audit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, businessId: d.business.id }) });
+      if (!STATIC) await fetch("/api/website-audit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, businessId: d.business.id }) });
     } catch {
       /* the demo store is the source of truth */
     }

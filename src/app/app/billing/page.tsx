@@ -14,6 +14,9 @@ import { useDemoStore } from "@/lib/store/demoStore";
 import type { Plan } from "@/lib/types";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
 
+/** Static-export builds have no API routes; skip the round trip. */
+const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 export default function BillingPage() {
   return (
     <ClientOnly>
@@ -35,6 +38,7 @@ function Billing() {
     setLoading(true);
     try {
       // In production this creates a Stripe Checkout / Billing Portal session.
+      if (STATIC) throw new Error("static");
       const res = await fetch("/api/stripe/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ plan: confirm }) });
       const json = (await res.json()) as { mode: string; url?: string };
       if (json.mode === "live" && json.url) {

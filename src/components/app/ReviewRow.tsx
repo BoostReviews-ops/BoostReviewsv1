@@ -14,6 +14,9 @@ import { useDemoStore } from "@/lib/store/demoStore";
 import type { Review } from "@/lib/types";
 import { cn, formatDate, relativeTime } from "@/lib/utils";
 
+/** Static-export builds have no API routes; skip the round trip. */
+const STATIC = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 const BUSINESS_NAME = "Royal Massage & Spa";
 
 function sentimentTone(r: Review) {
@@ -76,6 +79,7 @@ export function ReviewDetailModal({ review, open, onClose }: { review: Review; o
     setGenerating(true);
     let draft = "";
     try {
+      if (STATIC) throw new Error("static");
       const res = await fetch("/api/ai/reply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
