@@ -153,9 +153,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-dvh bg-canvas">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh w-[248px] shrink-0 flex-col border-r border-line bg-white lg:flex">
+      <aside className="sticky top-0 hidden h-dvh w-[272px] shrink-0 flex-col border-r border-line bg-white lg:flex">
         <div className="px-5 pb-4 pt-5">
-          <Logo height={34} href="/app" priority />
+          <Logo height={48} href="/app" priority />
         </div>
         <div className="px-3">
           <BusinessSelector />
@@ -188,7 +188,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <p className="mt-2 text-[12px] font-semibold text-white/90 underline-offset-2 hover:underline">Request a free audit →</p>
           </Link>
           <div className="flex items-center justify-between rounded-xl bg-canvas px-3 py-2">
-            <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-ink-subtle">
+            <span className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-ink-subtle">
               <span className="h-1.5 w-1.5 rounded-full bg-sky-400" /> Demo mode
             </span>
             <ResetDemo />
@@ -201,8 +201,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Mobile / tablet top bar */}
         <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md lg:hidden">
           <div className="flex h-14 items-center justify-between gap-3 px-4">
-            <Logo height={26} href="/app" priority />
-            <div className="w-[190px]">
+            <Logo height={34} href="/app" priority />
+            <div className="w-[180px] sm:w-[220px]">
               <BusinessSelector compact />
             </div>
           </div>

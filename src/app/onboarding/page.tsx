@@ -35,7 +35,7 @@ export default function OnboardingPage() {
     <div className="flex min-h-dvh flex-col bg-canvas">
       <header className="border-b border-line bg-white">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Logo height={28} priority />
+          <Logo height={38} priority />
           <Button size="sm" variant="secondary" href="/demo" iconRight={<ArrowRight className="h-4 w-4" />}>
             Explore live demo
           </Button>

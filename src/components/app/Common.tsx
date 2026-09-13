@@ -88,7 +88,7 @@ export function StatCard({
   const inner = (
     <>
       <div className="flex items-center justify-between gap-2">
-        <p className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">
+        <p className="flex min-w-0 items-center gap-1 text-[11px] font-semibold uppercase leading-tight tracking-wide text-ink-subtle">
           {icon}
           {label}
           {hint && <Tooltip text={hint} />}
@@ -109,7 +109,7 @@ export function StatCard({
       </div>
     </>
   );
-  const cls = cn("card block p-4 sm:p-5", href && "card-hover", className);
+  const cls = cn("card block p-3.5 sm:p-5", href && "card-hover", className);
   if (href)
     return (
       <Link href={href} className={cls}>

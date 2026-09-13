@@ -169,7 +169,8 @@ export function tapsByWeekday(daily: DailyTaps[], days = 30) {
       counts[dow]++;
     });
   const names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return names.map((name, i) => ({ day: name, avg: counts[i] ? totals[i] / counts[i] : 0, total: totals[i] }));
+  const full = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  return names.map((name, i) => ({ day: name, dayName: full[i], avg: counts[i] ? totals[i] / counts[i] : 0, total: totals[i] }));
 }
 
 export interface CompetitorInsight {

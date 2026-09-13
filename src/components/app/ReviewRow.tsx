@@ -165,7 +165,7 @@ export function ReviewDetailModal({ review, open, onClose }: { review: Review; o
           <div className="rounded-2xl border border-brand-100 bg-brand-50/40 p-4">
             <div className="mb-3 flex items-center justify-between gap-2">
               <p className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-brand-700">
-                <Sparkles className="h-3.5 w-3.5" /> {editing && text ? "Edit reply" : "Reply to this review"}
+                <Sparkles className="h-3.5 w-3.5" /> {editing && text ? (aiUsed ? "AI-drafted reply · edit before sending" : "Your reply") : "Reply to this review"}
               </p>
               {review.response?.status === "draft" && <Badge tone="brand">Draft</Badge>}
             </div>

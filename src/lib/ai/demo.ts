@@ -75,6 +75,8 @@ export function draftReplyDemo(req: ReplyDraftRequest): string {
     if (mentionsStaff) middle.push("Our team works hard to make every guest feel welcome, and we'll pass your kind words along to them.");
     if (mentionsClean) middle.push("We take a lot of pride in keeping the space spotless, so that means a lot.");
     if (mentionsAtmosphere) middle.push("We're so glad the space felt as calm and restorative as we intend it to.");
+    if (themes.includes("value")) middle.push("Hearing that the membership is paying off for you is exactly why we offer it.");
+    if (themes.includes("booking_easy")) middle.push("We work hard to make booking painless, so it's great to hear that landed.");
     if (!middle.length) middle.push(`It means a lot to everyone at ${biz} to know you had a great experience.`);
 
     let fix = "";

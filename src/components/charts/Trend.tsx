@@ -37,7 +37,7 @@ export function AreaTrend({
   const id = `area-${dataKey}-${color.replace("#", "")}`;
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <AreaChart data={data} margin={{ top: 8, right: 8, left: -22, bottom: 0 }}>
+      <AreaChart data={data} margin={{ top: 8, right: 8, left: -14, bottom: 0 }}>
         <defs>
           <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={color} stopOpacity={0.28} />
@@ -46,7 +46,7 @@ export function AreaTrend({
         </defs>
         <CartesianGrid vertical={false} stroke="#eef1f7" />
         <XAxis dataKey={xKey} axisLine={false} tickLine={false} tick={{ fontSize: 11 }} interval="preserveStartEnd" minTickGap={24} />
-        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} domain={domain ?? ["auto", "auto"]} width={40} />
+        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} domain={domain ?? ["auto", "auto"]} width={36} />
         <Tooltip {...tooltipStyle} formatter={(v) => [formatter ? formatter(Number(v)) : v, name ?? dataKey]} />
         <Area type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2.5} fill={`url(#${id})`} dot={false} activeDot={{ r: 5, strokeWidth: 2, stroke: "#fff" }} isAnimationActive />
       </AreaChart>
@@ -81,10 +81,10 @@ export function Bars({
   const hi = highlightIndex ?? (highlightLast ? data.length - 1 : -1);
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <BarChart data={data} margin={{ top: 8, right: 4, left: -22, bottom: 0 }} barCategoryGap="28%">
+      <BarChart data={data} margin={{ top: 8, right: 4, left: -14, bottom: 0 }} barCategoryGap="28%">
         <CartesianGrid vertical={false} stroke="#eef1f7" />
         <XAxis dataKey={xKey} axisLine={false} tickLine={false} tick={{ fontSize: 11 }} interval={0} />
-        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} width={40} allowDecimals={false} />
+        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} width={36} allowDecimals={false} />
         <Tooltip {...tooltipStyle} cursor={{ fill: "rgba(28,116,245,0.06)" }} formatter={(v) => [formatter ? formatter(Number(v)) : v, name ?? dataKey]} />
         <Bar dataKey={dataKey} radius={[radius, radius, radius, radius]} isAnimationActive>
           {data.map((_, i) => (
@@ -110,13 +110,13 @@ export function DualBars({
 }) {
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <BarChart data={data} margin={{ top: 8, right: 4, left: -22, bottom: 0 }} barCategoryGap="30%" barGap={2}>
+      <BarChart data={data} margin={{ top: 8, right: 4, left: -14, bottom: 0 }} barCategoryGap="22%" barGap={3}>
         <CartesianGrid vertical={false} stroke="#eef1f7" />
         <XAxis dataKey={xKey} axisLine={false} tickLine={false} tick={{ fontSize: 11 }} minTickGap={16} />
-        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} width={40} allowDecimals={false} />
+        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11 }} width={36} allowDecimals={false} />
         <Tooltip {...tooltipStyle} cursor={{ fill: "rgba(28,116,245,0.06)" }} />
         {keys.map((k) => (
-          <Bar key={k.key} dataKey={k.key} name={k.name} fill={k.color} radius={[5, 5, 5, 5]} isAnimationActive />
+          <Bar key={k.key} dataKey={k.key} name={k.name} fill={k.color} radius={[5, 5, 5, 5]} maxBarSize={22} isAnimationActive />
         ))}
       </BarChart>
     </ResponsiveContainer>

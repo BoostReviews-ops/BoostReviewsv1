@@ -36,7 +36,7 @@ function ReviewCardScreen() {
   const redirectUrl = `${siteUrl()}/r/${d.reviewCard.slug}`;
   const googleUrl = "https://search.google.com/local/writereview?placeid=ChIJdemoRoyalMassageSpa";
   const tapsDaily = d.dailyTaps.slice(-30).map((x) => ({ label: new Date(`${x.date}T00:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" }), taps: x.taps }));
-  const weekday = d.weekday.map((w) => ({ label: w.day, taps: Math.round(w.avg * 10) / 10 }));
+  const weekday = d.weekday.map((w) => ({ label: w.day, dayName: w.dayName, taps: Math.round(w.avg * 10) / 10 }));
   const peakIdx = weekday.reduce((best, w, i, arr) => (w.taps > arr[best].taps ? i : best), 0);
 
   const copyLink = async () => {
@@ -155,8 +155,8 @@ function ReviewCardScreen() {
         </div>
         <div className="card p-5">
           <p className="text-[11px] font-bold uppercase tracking-wider text-brand-600">Peak days</p>
-          <p className="mt-2 text-[20px] font-extrabold leading-tight text-navy-900">{weekday[peakIdx].label}s are busiest</p>
-          <p className="mt-1.5 text-[13.5px] text-ink-muted">Averaging {weekday[peakIdx].taps} taps on {weekday[peakIdx].label}s. Make sure the stand is front and center on weekends.</p>
+          <p className="mt-2 text-[20px] font-extrabold leading-tight text-navy-900">{weekday[peakIdx].dayName}s are busiest</p>
+          <p className="mt-1.5 text-[13.5px] text-ink-muted">Averaging {weekday[peakIdx].taps} taps on {weekday[peakIdx].dayName}s. Make sure the stand is front and center on weekends.</p>
         </div>
       </section>
 
@@ -164,7 +164,7 @@ function ReviewCardScreen() {
         <Card>
           <CardHeader title="Tap trend" subtitle="Daily taps · last 30 days" />
           <CardBody className="pt-3">
-            <AreaTrend data={tapsDaily} dataKey="taps" name="Taps" height={200} color="#14b1ef" />
+            <AreaTrend data={tapsDaily} dataKey="taps" name="Taps" height={200} color="#14b1ef" domain={[0, "auto"]} />
           </CardBody>
         </Card>
         <Card>
@@ -175,11 +175,11 @@ function ReviewCardScreen() {
         </Card>
       </section>
 
-      <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_360px]">
+      <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_360px] lg:items-start">
         <Card>
           <CardHeader title="Taps vs. new reviews" subtitle="Weekly · last 12 weeks — review growth tracks card activity" />
           <CardBody className="pt-3">
-            <DualBars data={d.weekly} keys={[{ key: "taps", name: "Taps", color: "#7ad9fb" }, { key: "reviews", name: "Reviews", color: "#1c74f5" }]} height={220} />
+            <DualBars data={d.weekly} keys={[{ key: "taps", name: "Taps", color: "#7ad9fb" }, { key: "reviews", name: "Reviews", color: "#1c74f5" }]} height={260} />
           </CardBody>
         </Card>
         <Card>

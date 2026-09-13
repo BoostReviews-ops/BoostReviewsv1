@@ -26,7 +26,7 @@ function Insights() {
   const s = d.sentiment90;
   const sp = d.sentimentPrev90;
   const staff = d.positiveThemes.find((t) => t.key === "staff");
-  const rising = [...d.negativeThemes].filter((t) => t.change > 0).sort((a, b) => b.change - a.change)[0];
+  const rising = [...d.negativeThemes].filter((t) => t.change > 0.1 && t.count >= 3).sort((a, b) => b.count - a.count || b.change - a.change)[0];
   const monthly = d.monthly.map((m) => ({ label: m.label, count: m.count }));
   const ratingTrend = d.scoreHistory.slice(-12).map((h, i) => ({ label: new Date(`${h.date}T00:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" }), rating: Number((4.68 + i * 0.012).toFixed(2)) }));
 

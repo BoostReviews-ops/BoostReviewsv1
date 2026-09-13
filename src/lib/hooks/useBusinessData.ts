@@ -196,7 +196,7 @@ export function useBusinessData() {
     /* ---------- storytelling: what's working / needs attention ---------- */
     const staff = positiveThemes.find((t) => t.key === "staff");
     const topPositive = positiveThemes[0];
-    const rising = [...negativeThemes].filter((t) => t.change > 0.1).sort((a, b) => b.change - a.change)[0];
+    const rising = [...negativeThemes].filter((t) => t.change > 0.1 && t.count >= 3).sort((a, b) => b.count - a.count || b.change - a.change)[0];
 
     const whatsWorking: Insight[] = [];
     if (m30.reviewGrowth > 0.05)

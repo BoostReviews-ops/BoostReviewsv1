@@ -2,7 +2,7 @@
 
 import { ArrowRight, CheckCircle2, ChevronRight, Sparkles, TrendingUp, AlertTriangle, ThumbsUp, MessageCircleWarning, Nfc, Star, MessagesSquare, Globe, Zap } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { ClientOnly, PageHeader, RangePicker, StatCard } from "@/components/app/Common";
 import { ScoreBreakdownModal } from "@/components/app/ScoreBreakdown";
 import { ReviewRow } from "@/components/app/ReviewRow";
@@ -57,6 +57,7 @@ function Overview() {
   const topPositive = d.positiveThemes.slice(0, 4);
   const rising = d.negativeThemes.filter((t) => t.count > 0).slice(0, 3);
   const scoreSpark = d.scoreHistory.slice(-12).map((s) => s.score);
+  const ringSize = useRingSize();
 
   return (
     <>
@@ -75,9 +76,9 @@ function Overview() {
         <Card className="relative overflow-hidden">
           <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-sky-100/70 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-brand-50 blur-3xl" />
-          <div className="relative flex flex-col items-center gap-5 p-5 sm:flex-row sm:items-center sm:gap-7 sm:p-7">
+          <div className="relative flex h-full flex-col items-center gap-5 p-5 sm:flex-row sm:items-center sm:gap-8 sm:p-8">
             <button onClick={() => setBreakdownOpen(true)} className="group relative shrink-0 rounded-full transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-100" aria-label="Open Reputation Score breakdown">
-              <ScoreRing value={d.score.score} size={196} stroke={15} tone={d.score.category.tone} label={d.score.category.label} sublabel="out of 100" />
+              <ScoreRing value={d.score.score} size={ringSize} stroke={15} tone={d.score.category.tone} label={d.score.category.label} sublabel="out of 100" />
             </button>
             <div className="min-w-0 flex-1 text-center sm:text-left">
               <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-600">BoostReviews.AI Reputation Score</p>
@@ -237,7 +238,7 @@ function Overview() {
           </p>
           <p className="mt-2 text-[22px] font-extrabold leading-tight text-navy-900">{d.m30.nfcTaps} taps this month</p>
           <p className="mt-1.5 text-[13px] leading-snug text-ink-muted">
-            {formatPct(d.m30.nfcChange, { sign: true })} vs last month · {d.taps7} this week · peak day {d.peakDay.day}
+            {formatPct(d.m30.nfcChange, { sign: true })} vs last month · {d.taps7} this week · busiest on {d.peakDay.dayName}s
           </p>
           <div className="mt-3 flex items-end gap-1">
             {d.weekly.slice(-8).map((w, i, arr) => (
@@ -284,6 +285,19 @@ function Overview() {
       <ScoreBreakdownModal open={breakdownOpen} onClose={() => setBreakdownOpen(false)} />
     </>
   );
+}
+
+function useRingSize() {
+  const wide = useSyncExternalStore(
+    (cb) => {
+      const mq = window.matchMedia("(min-width: 1024px)");
+      mq.addEventListener("change", cb);
+      return () => mq.removeEventListener("change", cb);
+    },
+    () => window.matchMedia("(min-width: 1024px)").matches,
+    () => false,
+  );
+  return wide ? 224 : 196;
 }
 
 function greeting() {

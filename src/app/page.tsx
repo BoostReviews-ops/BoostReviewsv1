@@ -10,7 +10,7 @@ export default function LandingPage() {
       {/* Nav */}
       <header className="sticky top-0 z-40 border-b border-line/70 bg-white/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Logo height={30} priority />
+          <Logo height={42} priority />
           <nav className="hidden items-center gap-7 text-[14px] font-medium text-ink-muted md:flex" aria-label="Primary">
             <a href="#how" className="hover:text-ink">How it works</a>
             <a href="#features" className="hover:text-ink">What you get</a>
@@ -204,7 +204,7 @@ export default function LandingPage() {
 
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
-          <Logo height={24} />
+          <Logo height={32} />
           <p className="flex items-center gap-1.5 text-[12.5px] text-ink-subtle">
             <ShieldCheck className="h-3.5 w-3.5" /> Reputation Score and Google Profile Health are BoostReviews.AI assessments, not Google metrics.
           </p>

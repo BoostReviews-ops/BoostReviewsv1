@@ -320,7 +320,8 @@ export function generateDailyTaps(): DailyTaps[] {
     const raw: number[] = [];
     for (let i = 0; i < 30; i++) {
       const d = daysAgo(w * 30 + i, today);
-      raw.push(dowWeight[d.getDay()] * (0.7 + rng() * 0.6));
+      const ramp = w === 0 ? 1 + ((29 - i) / 29) * 0.9 : 1; // recent days trend up
+      raw.push(dowWeight[d.getDay()] * (0.7 + rng() * 0.6) * ramp);
     }
     const sum = raw.reduce((a, b) => a + b, 0);
     const scaled = raw.map((r) => Math.floor((r / sum) * total));

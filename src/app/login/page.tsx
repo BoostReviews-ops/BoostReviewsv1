@@ -31,7 +31,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-canvas">
       <header className="flex h-16 items-center px-4 sm:px-6">
-        <Logo height={28} priority />
+        <Logo height={38} priority />
       </header>
       <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4 pb-16">
         <div className="card p-6 sm:p-8">
